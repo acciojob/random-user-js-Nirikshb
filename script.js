@@ -19,7 +19,6 @@ function displayUserDetails(){
     let image=output.picture.large
     let imageHtml=document.getElementById("image");
     imageHtml.src=image;
-
     let name=output.name
     console.log("name",name)
     let nameHtml=document.getElementById("name");
