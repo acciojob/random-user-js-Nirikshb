@@ -4,8 +4,6 @@ async function showUserDetails(){
         document.getElementById("showRelevantData").innerHTML=" ";
         let result=await fetch("https://randomuser.me/api/");
         data=await result.json();
-        
-       
         console.log(data)
         displayUserDetails();
     }
@@ -13,6 +11,7 @@ async function showUserDetails(){
         console.log(err);
     }
 }
+
 document.addEventListener("onclick",showUserDetails())
 // showUserDetails();
 function displayUserDetails(){
