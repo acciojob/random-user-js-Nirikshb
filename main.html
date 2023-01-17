@@ -1,37 +1,44 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserDash</title>
+    <link rel="stylesheet" href="./style.css">
+    <script async src="./index.js"></script>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-	<div class="parent">
-		<div class="child">
-			<button type="button" onclick="showAge();" data-attr="age" value="age">Age</button>
-			<button type="button" onclick="showEmail();" data-attr="email" value="email">Email</button>
-			<button type="button" onclick="showPhone();" data-attr="phone" value="phone">Phone Number</button>
-			<button type="button" onclick="showUserDetails();" id="getUser" value="phone">Get New User</button>
-			
-		</div>
-		<section class="showData">
-			<br>
-			<h2>Additional Info</h2>
-			
-			<div class="showPicName">
-				<img id="image" height="200px" width="300px"  alt="">
-				<p id="name"></p>
-				<p id="showRelevantData"></p>
+    <div class="user-dash">
+        <h2>User Dash</h2>
+        <div >
+            <span>Picture:</span>
+            <div id="img"></div>
+            <!-- <img src="" > -->
+          
+        </div>
+        <div>
+            <span>Name:</span>
+            <div id="name"></div>
+            <!-- <span>userData</span> -->
+        </div>
+        
+        <div>
+            <button data-id="age">Age</button>
+            <button data-id="phone">Phone</button>
+            <button data-id="email">Email</button>
+        </div>
+        <div id="add">
+            <h4>Additional Info</h4>
+             <div id="add-info">
 
-			</div>
-			
-		</section>
-	</div>
-    <script type="text/javascript" src="./script.js">
-</script>
+             </div>
+        </div>
+
+        <div>
+            <button id="getUser">Fetch new user</button>
+        </div>
+    </div>
 
 </body>
-
 </html>

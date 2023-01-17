@@ -1,39 +1,92 @@
-//your code here
-async function showUserDetails(){
-    try{
-        document.getElementById("showRelevantData").innerHTML=" ";
-        let result=await fetch("https://randomuser.me/api/");
-        data=await result.json();
-        console.log(data)
-        displayUserDetails();
+
+/**
+ *  {
+ *      info: page: 1 ,results: 1 ,seed: ,"80bcc66d0d0f0abd",
+ *      results : [
+ * {
+ *          
+ * }]
+ *  }
+ */
+
+
+let user = {};
+const imgElement = document.getElementById("img"),
+  nameElement = document.getElementById("name"),
+  additionalInfo = document.getElementById("add-info"),
+  infoButtons = Array.from(document.querySelectorAll("[data-id]")),
+  fetchBtn = document.getElementById("getUser");
+
+const renderUserBasicDetails = (user) => {
+
+   nameElement.innerHTML = '';
+   imgElement.innerHTML = '';
+    const nameSpan= document.createElement('span');
+    const img = document.createElement('img');
+
+    // name: { title: 'Miss', first: 'Adriza', last: 'Nascimento'}
+    nameSpan.textContent = user.name.first + " " + user.name.last;
+
+    img.src = user.picture.large;
+    img.classList.add('img')
+
+    imgElement.appendChild(img);
+
+    nameElement.appendChild(nameSpan);
+}
+
+const fetchUser = async () => {
+    const resp = await fetch("https://randomuser.me/api/");
+    const data = await resp.json();
+    user = data.results[0];
+    console.log("User",user);
+    renderUserBasicDetails(user);
+} 
+
+const createInfoELement = (info) => {
+
+    while(additionalInfo.firstChild) {
+        additionalInfo.removeChild(additionalInfo.firstChild);
     }
-    catch(err){
-        console.log(err);
-    }
+
+    // create an span of label 
+    // span with value 
+
+    const label = document.createElement('span');
+    const infoData = document.createElement('span');
+
+    label.textContent = info.label;
+    infoData.textContent = info.data;
+
+    // add it inside additional info
+
+    additionalInfo.appendChild(label);
+    additionalInfo.appendChild(infoData);
 }
 
-document.addEventListener("onclick",showUserDetails())
-// showUserDetails();
-function displayUserDetails(){
-    let output=data.results[0];
-    let image=output.picture.large
-    let imageHtml=document.getElementById("image");
-    imageHtml.src=image;
-    let name=output.name
-    console.log("name",name)
-    let nameHtml=document.getElementById("name");
-    nameHtml.innerText=name.title+" "+name.first+" "+name.last;
+const handleInfoButtonClick = (event) => {
+    const info = [
+        {
+            id: 'age',
+            label: "Age",
+            data: user.dob.age
+        },
+        {
+            id: 'phone',
+            label: "Phone",
+            data: user.phone
+        },
+        {  id: 'email',
+            label: "email",
+            data: user.email
+        }];
 
-    console.log(image)
+    const id = event.target.dataset.id;
+    const data = info.find((item) => item.id === id);
+    
+    createInfoELement(data);
+}
 
-}
-function showAge(){
-    document.getElementById("showRelevantData").innerHTML=data.results[0].dob.age;
-}
-function showEmail(){
-    document.getElementById("showRelevantData").innerHTML=data.results[0].email;
-}
-function showPhone(){
-    document.getElementById("showRelevantData").innerHTML=data.results[0].phone;
-
-}
+infoButtons.map((btn) => btn.addEventListener("click", handleInfoButtonClick));
+fetchBtn.addEventListener("click", fetchUser);
+document.addEventListener('DOMContentLoaded',fetchUser);
