@@ -38,6 +38,7 @@ const renderUserBasicDetails = (user) => {
 const fetchUser = async () => {
     const resp = await fetch("https://randomuser.me/api/");
     const data = await resp.json();
+    console.log(data);
     user = data.results[0];
     console.log("User",user);
     renderUserBasicDetails(user);
